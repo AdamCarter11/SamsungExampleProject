@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Obstacles : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class Obstacles : MonoBehaviour
         isTouchingTop = Physics2D.OverlapCircle(topCheck.position, topColLength, playerLayer);
         if(rb.isKinematic == false && isTouchingTop){
             Debug.Log("game over");
+            SceneManager.LoadScene("GameOver");
         }
 
     }

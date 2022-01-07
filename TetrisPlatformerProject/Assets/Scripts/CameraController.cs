@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -22,11 +23,11 @@ public class CameraController : MonoBehaviour
     {
         if(target.transform.position.y > heighestY && target.transform.position.y >= transform.position.y+2){
             heighestY = (target.transform.position.y-transform.position.y)/2;
-            Debug.Log(heighestY+startingY);
-        
+            //Debug.Log(heighestY+startingY);
         }
-        if(target.transform.position.y < transform.position.y-startingY-.2){
+        if(target.transform.position.y < transform.position.y-startingY-1.1){
             //Debug.Log("fallen off the screen");
+            SceneManager.LoadScene("GameOver");
         }
         Vector3 posToFollow = new Vector3(transform.position.x, heighestY + startingY, transform.position.z);
         transform.position = Vector3.Lerp(transform.position,posToFollow, followSpeed*Time.deltaTime);
