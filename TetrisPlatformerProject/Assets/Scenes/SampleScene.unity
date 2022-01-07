@@ -284,9 +284,9 @@ MonoBehaviour:
   lowJumpFallMultiplier: 5
   extraJumpsReset: 1
   frontCheck: {fileID: 836395869}
-  wallSlidingSpeed: 2
-  xWallForce: 30
-  yWallForce: 20
+  wallSlidingSpeed: 1
+  xWallForce: 15
+  yWallForce: 25
   wallJumpTime: 0.05
 --- !u!1 &519420028
 GameObject:

@@ -79,9 +79,7 @@ public class Player : MonoBehaviour
     {
         hDir = GetInput().x;
         CheckCollision();
-        if(canJump){
-            Jump();
-        }
+        
 
         //Wall Sliding
         isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, frontColLength, ground);
@@ -102,6 +100,10 @@ public class Player : MonoBehaviour
         }
         if(wallJumping){
             rb.AddForce(new Vector2(xWallForce * -hDir, yWallForce));
+        }
+
+        if(canJump && !wallJumping){
+            Jump();
         }
     }
     private static Vector2 GetInput(){

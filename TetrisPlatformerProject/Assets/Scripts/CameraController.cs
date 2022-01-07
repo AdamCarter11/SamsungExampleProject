@@ -15,7 +15,6 @@ public class CameraController : MonoBehaviour
     {
         startingY = transform.position.y-target.transform.position.y;
         heighestY = target.transform.position.y;
-        Debug.Log(startingY + heighestY);
     }
 
     // Update is called once per frame
