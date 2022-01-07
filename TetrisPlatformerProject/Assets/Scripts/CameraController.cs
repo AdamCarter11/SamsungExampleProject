@@ -11,11 +11,15 @@ public class CameraController : MonoBehaviour
     private float followSpeed;
     private float startingY;
     private float heighestY;
+    private float constCamera=0;
+    [SerializeField]
+    private float cameraChangeAmount;
     // Start is called before the first frame update
     void Start()
     {
         startingY = transform.position.y-target.transform.position.y;
         heighestY = target.transform.position.y;
+        StartCoroutine(MoveCamera());
     }
 
     // Update is called once per frame
@@ -29,7 +33,13 @@ public class CameraController : MonoBehaviour
             //Debug.Log("fallen off the screen");
             SceneManager.LoadScene("GameOver");
         }
-        Vector3 posToFollow = new Vector3(transform.position.x, heighestY + startingY, transform.position.z);
+        Vector3 posToFollow = new Vector3(transform.position.x, heighestY + startingY + constCamera, transform.position.z);
         transform.position = Vector3.Lerp(transform.position,posToFollow, followSpeed*Time.deltaTime);
+    }
+    IEnumerator MoveCamera(){
+        while(true){
+            yield return new WaitForSeconds(.1f);
+            constCamera += cameraChangeAmount;
+        }
     }
 }
