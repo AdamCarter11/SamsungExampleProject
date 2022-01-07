@@ -17,7 +17,9 @@ public class ObstacleSpawner : MonoBehaviour
     private IEnumerator SpawnObstacle(){
         while(true){
             yield return new WaitForSeconds(2.0f);
-            Instantiate(obstaclePrefab, new Vector2(Random.Range(-1.8f,1.8f), 5.5f) ,Quaternion.identity);
+            int rando = Random.Range(0,9);
+            float[] whichSpot = {-2, -1.5f, -1, -.5f, 0, .5f, 1, 1.5f, 2};
+            Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 5.5f) ,Quaternion.identity);
         }
     }
 }
