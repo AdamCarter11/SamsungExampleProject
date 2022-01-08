@@ -376,6 +376,7 @@ MonoBehaviour:
   rayCastLength: 0.48
   frontColLength: 0
   rayCastOffset: {x: 0.13, y: 0, z: 0}
+  attackOffset: {x: 0.3, y: 0, z: 0}
   movementAcc: 20
   maxMoveSpeed: 10
   drag: 15

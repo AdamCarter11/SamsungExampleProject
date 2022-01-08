@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float frontColLength;
     [SerializeField]
     private Vector3 rayCastOffset;
+    [SerializeField]
+    private Vector3 attackOffset;
     private bool onGround;
     private bool FacingRight = true;
 
@@ -54,6 +56,8 @@ public class Player : MonoBehaviour
     private float resetYWallForce;
 
     private Animator anim;
+
+    private GameObject whichToAttack= null;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,6 +122,11 @@ public class Player : MonoBehaviour
         if(canJump && !wallJumping){
             Jump();
         }
+
+        //attacking
+        if(whichToAttack != null && Input.GetButton("Fire1")){
+            Destroy(whichToAttack);
+        }
     }
 
     //used to get the input in update
@@ -164,6 +173,21 @@ public class Player : MonoBehaviour
     //checks if player is on the ground
     private void CheckCollision(){
         onGround = Physics2D.Raycast(transform.position + rayCastOffset, Vector2.down, rayCastLength, ground) || Physics2D.Raycast(transform.position - rayCastOffset, Vector2.down, rayCastLength, ground);
+        if(transform.localScale.x >= 0){
+            if(Physics2D.Raycast(transform.position + attackOffset, Vector2.right, rayCastLength, ground)){
+                whichToAttack = Physics2D.Raycast(transform.position + attackOffset, Vector2.right, rayCastLength, ground).transform.gameObject;
+            }
+
+        }
+        else if(transform.localScale.x < 0){
+            if(Physics2D.Raycast(transform.position - attackOffset, Vector2.left, rayCastLength, ground)){
+                whichToAttack = Physics2D.Raycast(transform.position - attackOffset, Vector2.left, rayCastLength, ground).transform.gameObject;
+            }
+        }
+        else{
+            whichToAttack = null;
+        }
+        //Debug.Log(whichToAttack);
     }
 
     //used to see where colliders are while in the editor
@@ -171,6 +195,13 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + rayCastOffset, transform.position + rayCastOffset + Vector3.down * rayCastLength);
         Gizmos.DrawLine(transform.position - rayCastOffset, transform.position - rayCastOffset + Vector3.down * rayCastLength);
+        Gizmos.color = Color.red;
+        if(transform.localScale.x >= 0){
+            Gizmos.DrawLine(transform.position + attackOffset, transform.position + attackOffset + Vector3.right * rayCastLength);
+        }
+        if(transform.localScale.x < 0){
+            Gizmos.DrawLine(transform.position - attackOffset, transform.position - attackOffset + Vector3.left * rayCastLength);
+        }
     }
     
     //applies drag in the air
