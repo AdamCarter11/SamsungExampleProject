@@ -13,6 +13,8 @@ public class ObstacleSpawner : MonoBehaviour
     private float spawnRate;
     [SerializeField]
     private Camera cameraH;
+
+    private Color[] colors = {Color.red, Color.green, Color.yellow};
     // Update is called once per frame
     private void Start() {
         StartCoroutine(SpawnObstacle());
@@ -36,6 +38,7 @@ public class ObstacleSpawner : MonoBehaviour
             else{
                 randoSize = Random.Range(0,3);
             }
+            spawnedCube.GetComponent<SpriteRenderer>().color = colors[randoSize];
             spawnedCube.transform.localScale = new Vector2(cubeSize[randoSize], cubeSize[randoSize]);
         }
     }

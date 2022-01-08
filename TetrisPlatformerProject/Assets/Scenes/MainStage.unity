@@ -385,7 +385,7 @@ MonoBehaviour:
   extraJumpsReset: 1
   frontCheck: {fileID: 836395869}
   wallSlidingSpeed: 1
-  xWallForce: 15
+  xWallForce: 5
   yWallForce: 25
   wallJumpTime: 0.05
 --- !u!1 &519420028
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 374939429}
   followSpeed: 3
-  cameraChangeAmount: 0.001
+  cameraChangeAmount: 0.01
   scoreBox: {fileID: 2057307428}
 --- !u!20 &519420031
 Camera:
@@ -1096,7 +1096,7 @@ Transform:
   m_GameObject: {fileID: 2098281940}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 20, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1181542663}
   m_RootOrder: 0
