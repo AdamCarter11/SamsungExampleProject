@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
         }
         if(wallJumping){
             rb.AddForce(new Vector2(xWallForce * -hDir, yWallForce));
+            //decrease yWallForce a little bit each time you walljump
         }
 
         if(canJump && !wallJumping){

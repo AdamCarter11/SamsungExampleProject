@@ -11,7 +11,8 @@ public class Obstacles : MonoBehaviour
     [SerializeField]
     private Transform topCheckR;
     private bool isTouchingTopL, isTouchingTopR;
-    private float topColLength = .1f;
+    [SerializeField]
+    private float topColLength = .4f;
     [SerializeField]
     private LayerMask playerLayer;
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class Obstacles : MonoBehaviour
     void Update()
     {  
         //may want to add one in each corner
-        isTouchingTopL = Physics2D.OverlapCircle(topCheckL.position, topColLength, playerLayer);
+        isTouchingTopL = Physics2D.OverlapCircle(topCheckL.position, topColLength, playerLayer);    //topColLength needs to change based on size
         isTouchingTopR = Physics2D.OverlapCircle(topCheckR.position, topColLength, playerLayer);
         if(rb.isKinematic == false && isTouchingTopL || isTouchingTopR){
             Debug.Log("game over");

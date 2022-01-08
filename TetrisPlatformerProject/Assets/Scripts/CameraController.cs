@@ -29,8 +29,8 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if(target.transform.position.y > heighestY && target.transform.position.y >= transform.position.y+2){
-            heighestY = (target.transform.position.y-transform.position.y)/2;
-            //Debug.Log(heighestY+startingY);
+            heighestY = (target.transform.position.y)-6;
+            Debug.Log(heighestY+startingY);
         }
         
         if(target.transform.position.y < transform.position.y-startingY-1.1){
