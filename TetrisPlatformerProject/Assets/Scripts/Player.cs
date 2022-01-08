@@ -51,10 +51,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float yWallForce;
     public float wallJumpTime;
+    private float resetYWallForce;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        resetYWallForce = yWallForce;
     }
 
     private void FixedUpdate() {
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour
         if(onGround){
             ApplyDrag();
             extraJumps = extraJumpsReset;
+            yWallForce = resetYWallForce;
         }
         else{
             ApplyAirDrag();
@@ -97,10 +100,12 @@ public class Player : MonoBehaviour
         if(Input.GetButtonDown("Jump") && wallSliding == true){
             wallJumping = true;
             Invoke("SetWallJumpingToFalse", wallJumpTime);
+            yWallForce/=1.1f;
         }
         if(wallJumping){
             rb.AddForce(new Vector2(xWallForce * -hDir, yWallForce));
             //decrease yWallForce a little bit each time you walljump
+            
         }
 
         if(canJump && !wallJumping){
