@@ -24,19 +24,26 @@ public class Obstacles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
-        //may want to add one in each corner
+        //used to create invisible colliders at base of block (instead of all around)
         isTouchingTopL = Physics2D.OverlapCircle(topCheckL.position, transform.localScale.x/4, playerLayer);    //topColLength needs to change based on size
         isTouchingTopR = Physics2D.OverlapCircle(topCheckR.position, transform.localScale.x/4, playerLayer);
 
-        if(rb.isKinematic == false && isTouchingTopL || isTouchingTopR){
+        //checks if the bottom of the obstacle collides with player
+        if(rb.isKinematic == false && (isTouchingTopL || isTouchingTopR)){
             Debug.Log("game over");
             SceneManager.LoadScene("GameOver");
         }
     }
 
+    //once block collides with ground or other block, it becomes un-movable (and can't harm the player)
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("GroundTag")){
             rb.isKinematic = true;
         }
+    }
+
+    //destroys blocks when they leave camera
+    private void OnBecameInvisible() {
+        Destroy(gameObject);
     }
 }

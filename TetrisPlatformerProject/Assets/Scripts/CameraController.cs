@@ -28,23 +28,30 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //used to calculate where the camera should be based on the players heighest Y val
         if(target.transform.position.y > heighestY && target.transform.position.y >= transform.position.y+2){
             heighestY = (target.transform.position.y)-6;
-            Debug.Log(heighestY+startingY);
+            //Debug.Log(heighestY+startingY);
         }
         
+        //checks if player has fallen off the screen
         if(target.transform.position.y < transform.position.y-startingY-1.1){
-            //Debug.Log("fallen off the screen");
+            Debug.Log("fallen off the screen");
             SceneManager.LoadScene("GameOver");
         }
+
+        //what actually moves the camera
         Vector3 posToFollow = new Vector3(transform.position.x, heighestY + startingY + constCamera, transform.position.z);
         transform.position = Vector3.Lerp(transform.position,posToFollow, followSpeed*Time.deltaTime);
 
+        //calculates and displays score
         if(target.transform.position.y > playerScore){
             playerScore = target.transform.position.y;
         }
         scoreBox.text = "Distance: " + playerScore.ToString("F2");
     }
+
+    //makes camera move slightly over time
     IEnumerator MoveCamera(){
         while(true){
             yield return new WaitForSeconds(.1f);

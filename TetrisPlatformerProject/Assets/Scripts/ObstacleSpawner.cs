@@ -27,8 +27,10 @@ public class ObstacleSpawner : MonoBehaviour
         while(true){
             yield return new WaitForSeconds(spawnRate);
             int rando = Random.Range(0,9);
+            //spawns cube at one of 9 random positions
             GameObject spawnedCube = Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 6f + cameraH.transform.position.y) ,Quaternion.identity);
 
+            //used to pick size and color
             if(rando == 0 || rando == 8){
                 randoSize = 0;
             }
@@ -40,6 +42,12 @@ public class ObstacleSpawner : MonoBehaviour
             }
             spawnedCube.GetComponent<SpriteRenderer>().color = colors[randoSize];
             spawnedCube.transform.localScale = new Vector2(cubeSize[randoSize], cubeSize[randoSize]);
+
+            //makes cubes spawn faster every time one is spawned to a limit
+            spawnRate-=.01f;
+            if(spawnRate<= .3f){
+                spawnRate = .3f;
+            }
         }
     }
 }

@@ -52,14 +52,18 @@ public class Player : MonoBehaviour
     private float yWallForce;
     public float wallJumpTime;
     private float resetYWallForce;
+
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         resetYWallForce = yWallForce;
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate() {
+        
         MoveChar();
         if(onGround){
             ApplyDrag();
@@ -80,7 +84,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //gets user input and checks collision (also plays animations)
         hDir = GetInput().x;
+        anim.SetFloat("Speed", Mathf.Abs(hDir));
         CheckCollision();
         
 
@@ -108,14 +114,18 @@ public class Player : MonoBehaviour
             
         }
 
+        //what triggers the jump
         if(canJump && !wallJumping){
             Jump();
         }
     }
+
+    //used to get the input in update
     private static Vector2 GetInput(){
         return new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
     }
     
+    //whats actually moving the character and applying force
     private void MoveChar(){
         rb.AddForce(new Vector2(hDir,0f)*movementAcc);
         if(Mathf.Abs(rb.velocity.x)>maxMoveSpeed){
@@ -123,6 +133,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //code to flip the player when they change directions
     private void Flip(){
         FacingRight = !FacingRight;
         Vector3 scaler = transform.localScale;
@@ -130,6 +141,7 @@ public class Player : MonoBehaviour
         transform.localScale = scaler;
     }
 
+    //drag while on the ground (accelerate, de-accelerate)
     private void ApplyDrag(){
         if(Mathf.Abs(hDir)<.4f || changeDir){
             rb.drag = drag;
@@ -139,6 +151,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //the jumping logic (and extra jumping logic)
     private void Jump(){
         if(!onGround){
             --extraJumps;
@@ -148,20 +161,24 @@ public class Player : MonoBehaviour
         rb.AddForce(Vector2.up*jumpHeight, ForceMode2D.Impulse);
     }
 
+    //checks if player is on the ground
     private void CheckCollision(){
         onGround = Physics2D.Raycast(transform.position + rayCastOffset, Vector2.down, rayCastLength, ground) || Physics2D.Raycast(transform.position - rayCastOffset, Vector2.down, rayCastLength, ground);
     }
 
+    //used to see where colliders are while in the editor
     private void OnDrawGizmos(){
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + rayCastOffset, transform.position + rayCastOffset + Vector3.down * rayCastLength);
         Gizmos.DrawLine(transform.position - rayCastOffset, transform.position - rayCastOffset + Vector3.down * rayCastLength);
     }
-
+    
+    //applies drag in the air
     private void ApplyAirDrag(){
         rb.drag = airDrag;
     }
 
+    //makes the player fall at different speeds based on their height
     private void FallMultiplier(){
         if(rb.velocity.y < 0){
             rb.gravityScale = fallMultiplier;
@@ -174,6 +191,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //used to reset wall jumping
     private void SetWallJumpingToFalse(){
         wallJumping = false;
     }
