@@ -390,6 +390,8 @@ MonoBehaviour:
   xWallForce: 10
   yWallForce: 30
   wallJumpTime: 0.05
+  attackDelay: 0.5
+  freezeObstacles: 0
 --- !u!95 &374939435
 Animator:
   serializedVersion: 3

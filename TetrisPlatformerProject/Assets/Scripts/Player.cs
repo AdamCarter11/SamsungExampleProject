@@ -58,6 +58,13 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     private GameObject whichToAttack= null;
+
+    private bool canAttack = true;
+    [SerializeField]
+    private float attackDelay = .5f;
+
+    [HideInInspector]
+    public bool freezeObstacles = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -124,9 +131,29 @@ public class Player : MonoBehaviour
         }
 
         //attacking
-        if(whichToAttack != null && Input.GetButton("Fire1")){
-            Destroy(whichToAttack);
+        if(whichToAttack != null && Input.GetButton("Fire1") && canAttack){
+            if(whichToAttack.transform.position.x >-2.5 && whichToAttack.transform.position.x < 2.5){
+                canAttack = false;
+                StartCoroutine(resetAttack());
+                whichToAttack.GetComponent<Obstacles>().health--;
+                //Debug.Log(whichToAttack.GetComponent<Obstacles>().health);
+                if(whichToAttack.GetComponent<Obstacles>().health <= 0){
+                    Destroy(whichToAttack);
+                }
+            }
         }
+
+        if(Input.GetKeyDown(KeyCode.E)){
+            freezeObstacles = true;
+        }
+        else{
+            freezeObstacles = false;
+        }
+    }
+
+    IEnumerator resetAttack(){
+        yield return new WaitForSeconds(attackDelay);
+        canAttack = true;
     }
 
     //used to get the input in update
