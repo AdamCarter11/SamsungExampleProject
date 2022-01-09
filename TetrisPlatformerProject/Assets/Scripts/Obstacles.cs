@@ -43,6 +43,7 @@ public class Obstacles : MonoBehaviour
         if(render.isVisible && player.GetComponent<Player>().freezeObstacles){
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
             //block is being seen by camera
+            canHurt = false;
         }
     }
 
