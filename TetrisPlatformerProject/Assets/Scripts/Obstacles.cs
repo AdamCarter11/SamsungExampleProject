@@ -51,6 +51,7 @@ public class Obstacles : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("GroundTag")){
             canHurt = false;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
         }
     }
 
