@@ -49,7 +49,7 @@ public class Obstacles : MonoBehaviour
 
     //once block collides with ground or other block, it becomes un-movable (and can't harm the player)
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.CompareTag("GroundTag")){
+        if(other.gameObject.CompareTag("GroundTag") && transform.position.y < player.transform.position.y + 8f){
             canHurt = false;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
         }

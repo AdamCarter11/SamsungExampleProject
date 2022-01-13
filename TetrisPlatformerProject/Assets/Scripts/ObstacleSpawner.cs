@@ -13,7 +13,7 @@ public class ObstacleSpawner : MonoBehaviour
     private float spawnRate;
     [SerializeField]
     private Camera cameraH;
-
+    private float pastCameraY = 0f;
     private Color[] colors = {Color.red, Color.green, Color.yellow};
     // Update is called once per frame
     private void Start() {
@@ -28,7 +28,10 @@ public class ObstacleSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnRate);
             int rando = Random.Range(0,9);
             //spawns cube at one of 9 random positions
-            GameObject spawnedCube = Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 10f + cameraH.transform.position.y) ,Quaternion.identity);
+            if(cameraH.transform.position.y > pastCameraY){
+                pastCameraY = cameraH.transform.position.y;
+            }
+            GameObject spawnedCube = Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 10f + pastCameraY) ,Quaternion.identity);
 
             //used to pick size and color
             if(rando == 0 || rando == 8){
