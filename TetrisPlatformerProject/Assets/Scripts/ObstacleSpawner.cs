@@ -28,7 +28,7 @@ public class ObstacleSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnRate);
             int rando = Random.Range(0,9);
             //spawns cube at one of 9 random positions
-            GameObject spawnedCube = Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 6f + cameraH.transform.position.y) ,Quaternion.identity);
+            GameObject spawnedCube = Instantiate(obstaclePrefab, new Vector2(whichSpot[rando], 10f + cameraH.transform.position.y) ,Quaternion.identity);
 
             //used to pick size and color
             if(rando == 0 || rando == 8){
