@@ -65,6 +65,8 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public bool freezeObstacles = false;
+
+    private int freezePowerUpCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -139,12 +141,14 @@ public class Player : MonoBehaviour
                 //Debug.Log(whichToAttack.GetComponent<Obstacles>().health);
                 if(whichToAttack.GetComponent<Obstacles>().health <= 0){
                     Destroy(whichToAttack);
+                    GetComponent<AudioSource>().Play();
                 }
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetKeyDown(KeyCode.E) && freezePowerUpCount > 0){
             freezeObstacles = true;
+            freezePowerUpCount--;
         }
         else{
             freezeObstacles = false;
@@ -195,6 +199,7 @@ public class Player : MonoBehaviour
         }
         rb.velocity = new Vector2(rb.velocity.x, 0f);
         rb.AddForce(Vector2.up*jumpHeight, ForceMode2D.Impulse);
+        
     }
 
     //checks if player is on the ground
@@ -247,10 +252,19 @@ public class Player : MonoBehaviour
         else{
             rb.gravityScale = 1f;
         }
+        
     }
 
     //used to reset wall jumping
     private void SetWallJumpingToFalse(){
         wallJumping = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("FreezePowerUp")){
+            freezePowerUpCount++;
+            Destroy(other.gameObject);
+            
+        }
     }
 }

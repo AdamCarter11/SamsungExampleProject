@@ -37,7 +37,8 @@ public class CameraController : MonoBehaviour
         //checks if player has fallen off the screen
         if(target.transform.position.y < transform.position.y-startingY-1.1){
             Debug.Log("fallen off the screen");
-            SceneManager.LoadScene("GameOver");
+            //SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("tempAd");
         }
 
         //what actually moves the camera

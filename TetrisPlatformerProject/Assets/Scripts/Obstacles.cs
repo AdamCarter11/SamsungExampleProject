@@ -10,11 +10,13 @@ public class Obstacles : MonoBehaviour
     private Transform topCheckL;
     [SerializeField]
     private Transform topCheckR;
-    private bool isTouchingTopL, isTouchingTopR;
+    private bool isTouchingTopL, isTouchingTopR, isTouchingBlockL, isTouchingBlockR;
     [SerializeField]
     private float topColLength = .4f;
     [SerializeField]
     private LayerMask playerLayer;
+    [SerializeField]
+    private LayerMask blockLayer;
     public int health = 2;
     private bool canHurt = true;
     private Renderer render;
@@ -37,7 +39,8 @@ public class Obstacles : MonoBehaviour
         //checks if the bottom of the obstacle collides with player
         if(canHurt && (isTouchingTopL || isTouchingTopR)){
             Debug.Log("game over");
-            SceneManager.LoadScene("GameOver");
+            //SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("tempAd");
         }
 
         if(render.isVisible && player.GetComponent<Player>().freezeObstacles){
@@ -58,5 +61,11 @@ public class Obstacles : MonoBehaviour
     //destroys blocks when they leave camera
     private void OnBecameInvisible() {
         //Destroy(gameObject); //commented out until I can figure out how to freeze the bottom row so the blocks don't keep falling
+    }
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.gameObject.CompareTag("GroundTag")){
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            canHurt = true;
+        }
     }
 }
