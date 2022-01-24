@@ -1,0 +1,1 @@
+-keep class com.samsung.android.sdk.iap.lib.** { *; }
