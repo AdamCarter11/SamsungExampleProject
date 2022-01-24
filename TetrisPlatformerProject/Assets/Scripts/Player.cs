@@ -105,10 +105,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        canJump = triggerJump && (onGround || extraJumps > 0);
+        canJump = Input.GetKeyDown(KeyCode.Space) || triggerJump && (onGround || extraJumps > 0);
         triggerJump = false;
         //gets user input and checks collision (also plays animations)
-        //hDir = GetInput().x;
+       
         if(moveRight){
             hDir = 1;
         }
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
             hDir = -1;
         }
         else{
-            hDir = 0;
+            hDir = GetInput().x;
         }
         anim.SetFloat("Speed", Mathf.Abs(hDir));
         CheckCollision();
