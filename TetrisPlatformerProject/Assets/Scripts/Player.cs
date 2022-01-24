@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     private bool onGround;
     private bool FacingRight = true;
     private int directionMoving = 0;
+    [HideInInspector]
+    public bool moveRight = false;
+    [HideInInspector]
+    public bool moveLeft = false;
 
     [Header("Movement Variables")]
     [SerializeField]
@@ -47,7 +51,7 @@ public class Player : MonoBehaviour
     private bool wallSliding;
     [SerializeField]
     private float wallSlidingSpeed;
-    private bool canJump => Input.GetButtonDown("Jump") && (onGround || extraJumps > 0);
+    private bool canJump;
     private bool wallJumping;
     [SerializeField]
     private float xWallForce;
@@ -68,6 +72,9 @@ public class Player : MonoBehaviour
     public bool freezeObstacles = false;
 
     private int freezePowerUpCount;
+    private bool triggerJump = false;
+    private bool triggerAttack = false;
+    private bool triggerPowerUp = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,8 +105,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        canJump = triggerJump && (onGround || extraJumps > 0);
+        triggerJump = false;
         //gets user input and checks collision (also plays animations)
-        hDir = GetInput().x;
+        //hDir = GetInput().x;
+        if(moveRight){
+            hDir = 1;
+        }
+        else if(moveLeft){
+            hDir = -1;
+        }
+        else{
+            hDir = 0;
+        }
         anim.SetFloat("Speed", Mathf.Abs(hDir));
         CheckCollision();
         
@@ -117,7 +135,7 @@ public class Player : MonoBehaviour
         }
 
         //wall Jumping
-        if(Input.GetButtonDown("Jump") && wallSliding == true){
+        if(triggerJump && wallSliding == true){
             wallJumping = true;
             Invoke("SetWallJumpingToFalse", wallJumpTime);
             yWallForce/=1.1f;
@@ -134,7 +152,7 @@ public class Player : MonoBehaviour
         }
 
         //attacking
-        if(whichToAttack != null && Input.GetButton("Fire1") && canAttack){
+        if(whichToAttack != null && triggerAttack && canAttack){
             if(whichToAttack.transform.position.x >-2.5 && whichToAttack.transform.position.x < 2.5){
                 canAttack = false;
                 StartCoroutine(resetAttack());
@@ -146,14 +164,16 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        triggerAttack = false;
 
-        if(Input.GetKeyDown(KeyCode.E) && freezePowerUpCount > 0){
+        if(triggerPowerUp && freezePowerUpCount > 0){
             freezeObstacles = true;
             freezePowerUpCount--;
         }
         else{
             freezeObstacles = false;
         }
+        triggerPowerUp = false;
     }
 
     IEnumerator resetAttack(){
@@ -165,22 +185,38 @@ public class Player : MonoBehaviour
     private static Vector2 GetInput(){
         return new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
     }
-
+    public void jumpButton(){
+        triggerJump = true;
+    }
+    public void attackButton(){
+        triggerAttack = true;
+    }
+    public void powerUpButton(){
+        triggerPowerUp = true;
+    }
     public void moveR(){
-        directionMoving = 1;
-        print(directionMoving);
+        moveRight = true;
+        moveLeft = false;
+    }
+    public void releaseRight(){
+        moveRight = false;
     }
     public void moveL(){
-        directionMoving = -1;
-        print(directionMoving);
+        moveRight = false;
+        moveLeft = true;
+    }
+    public void releaseLeft(){
+        moveLeft = false;
     }
 
     //whats actually moving the character and applying force
     private void MoveChar(){
         rb.AddForce(new Vector2(hDir,0f)*movementAcc);
+        /*
         if(Mathf.Abs(rb.velocity.x)>maxMoveSpeed){
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x)*maxMoveSpeed, rb.velocity.y);
         }
+        */
     }
 
     //code to flip the player when they change directions

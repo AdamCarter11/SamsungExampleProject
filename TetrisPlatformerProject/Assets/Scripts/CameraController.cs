@@ -17,11 +17,13 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Text scoreBox;
     private float playerScore;
+    private float playerStartingY;
     // Start is called before the first frame update
     void Start()
     {
         startingY = transform.position.y-target.transform.position.y;
         heighestY = target.transform.position.y;
+        playerStartingY = target.transform.position.y;
         StartCoroutine(MoveCamera());
     }
 
