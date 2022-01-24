@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     private Vector3 attackOffset;
     private bool onGround;
     private bool FacingRight = true;
+    private int directionMoving = 0;
 
     [Header("Movement Variables")]
     [SerializeField]
@@ -164,7 +165,16 @@ public class Player : MonoBehaviour
     private static Vector2 GetInput(){
         return new Vector2(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Vertical"));
     }
-    
+
+    public void moveR(){
+        directionMoving = 1;
+        print(directionMoving);
+    }
+    public void moveL(){
+        directionMoving = -1;
+        print(directionMoving);
+    }
+
     //whats actually moving the character and applying force
     private void MoveChar(){
         rb.AddForce(new Vector2(hDir,0f)*movementAcc);
