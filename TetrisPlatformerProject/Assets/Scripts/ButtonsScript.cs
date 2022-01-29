@@ -19,4 +19,8 @@ public class ButtonsScript : MonoBehaviour
     public void PlayAgain(){
         SceneManager.LoadScene("MainStage");
     }
+    public void ReviewApp(){
+        Application.OpenURL("samsungapps://AppRating/<App Package Name>");  //make sure to change, <App Package Name>, to the URL of your app
+        print("Loaded Review");
+    }
 }
