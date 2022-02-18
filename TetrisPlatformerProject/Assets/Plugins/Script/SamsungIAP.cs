@@ -286,7 +286,7 @@ namespace Samsung
             else
                 OnError("Android Context not inialized correctly.");
         }
-
+        
         public void StartPayment(string itemID, string passThroughParam, System.Action<PurchasedInfo> listener)
         {
             Debug.Log("StartPayment : !");
