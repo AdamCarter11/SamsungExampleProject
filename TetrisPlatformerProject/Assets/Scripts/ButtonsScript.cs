@@ -23,4 +23,7 @@ public class ButtonsScript : MonoBehaviour
         Application.OpenURL("samsungapps://AppRating/<App Package Name>");  //make sure to change, <App Package Name>, to the URL of your app
         print("Loaded Review");
     }
+    public void OpenShop(){
+        SceneManager.LoadScene("Shop");
+    }
 }

@@ -10,7 +10,7 @@ public class IAPStuff : MonoBehaviour
     //private List<Samsung.ProductVo> listOfProducts;
     [SerializeField] private Button productsButton;
     [SerializeField] private Dropdown itemList;
-
+    [SerializeField] private Text itemText;
     void Start()
     {
         //lst = new System.Action<Samsung.ProductInfoList>(returnInfoList);
@@ -94,8 +94,9 @@ public class IAPStuff : MonoBehaviour
                             //consume the consumable items and OnConsume callback is triggered afterwards
                             SamsungIAP.Instance.ConsumePurchasedItems(item.mPurchaseId, OnConsume);
                         }
-                        if(item.mItemId == "BuySuperJump"){
+                        if(item.mItemId == "1"){
                             //superJump++;
+                            itemText.text = "You bought first IAP";
                         }
                         else if(item.mItemId == "BuyUpgradedPlayer"){                         
                             //playerMaterial = Resources.Load<Material>("playerMaterial");
