@@ -25,7 +25,7 @@ public class IAPStuff : MonoBehaviour
     {
 
     }
-    
+
     //gets the products (not necessarily owned)
     void OnGetProductsDetails(ProductInfoList _productList){
         if (_productList.errorInfo != null){
@@ -35,7 +35,7 @@ public class IAPStuff : MonoBehaviour
                     List<string> optionItems = new List<string>();
                     int i = 1;
                     foreach (ProductVo item in _productList.results){
-                            string temp = i+ ". " + item.mItemName + ": $ " + item.mItemPrice;
+                            string temp = i+ ". " + item.mItemId + ": $ " + item.mItemPrice;
                             optionItems.Add(temp);
                             i++;
                     }
@@ -95,8 +95,8 @@ public class IAPStuff : MonoBehaviour
                         //consume the consumable items
                         SamsungIAP.Instance.ConsumePurchasedItems(_purchaseInfo.results.mPurchaseId, OnConsume);
                     }
-                    if(_purchaseInfo.results.mItemId == "1"){
-                        itemText.text = "You bought first IAP";
+                    if(_purchaseInfo.results.mItemId == "testItem"){
+                        itemText.text = "You bought first IAP: " + _purchaseInfo.results.mItemName;
                     }
                     /*
                     else if(_purchaseInfo.results.mItemId == "BuyUpgradedPlayer"){

@@ -688,7 +688,7 @@ MonoBehaviour:
   movementAcc: 20
   maxMoveSpeed: 10
   drag: 15
-  jumpHeight: 8
+  jumpHeight: 15
   airDrag: 2.5
   fallMultiplier: 4
   lowJumpFallMultiplier: 3
