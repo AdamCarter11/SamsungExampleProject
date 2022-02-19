@@ -75,6 +75,8 @@ public class Player : MonoBehaviour
     private bool triggerJump = false;
     private bool triggerAttack = false;
     private bool triggerPowerUp = false;
+
+    [SerializeField] private GameObject particleObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +107,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(MainManager.Instance.betterPlayer == true){
+            particleObject.SetActive(true);
+        }
+        else{
+            particleObject.SetActive(false);
+        }
+        
         canJump = Input.GetKeyDown(KeyCode.Space) || triggerJump && (onGround || extraJumps > 0);
         triggerJump = false;
         //gets user input and checks collision (also plays animations)
