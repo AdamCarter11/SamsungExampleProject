@@ -26,4 +26,7 @@ public class ButtonsScript : MonoBehaviour
     public void OpenShop(){
         SceneManager.LoadScene("Shop");
     }
+    public void Menu(){
+        SceneManager.LoadScene("Menu");
+    }
 }

@@ -213,7 +213,6 @@ namespace Samsung
                 {
                     _instance = GameObject.FindObjectOfType<SamsungIAP>();
                 }
-
                 return _instance;
             }
         }

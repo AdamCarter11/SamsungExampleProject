@@ -8,17 +8,19 @@ public class IAPStuff : MonoBehaviour
 {
     //private System.Action<Samsung.ProductInfoList> lst;
     //private List<Samsung.ProductVo> listOfProducts;
-    [SerializeField] private Button productsButton, itemOneButton;
+    //[SerializeField] private Button productsButton, itemOneButton;
     [SerializeField] private Dropdown itemList;
-    [SerializeField] private Text itemText;
+    [SerializeField] private Text itemText, purchasedItems;
+    //private int testNum = 0;
     void Start()
     {
         //lst = new System.Action<Samsung.ProductInfoList>(returnInfoList);
         //Samsung.SamsungIAP.Instance.GetProductsDetails("", lst);
         //test when seller account goes through
         //Samsung.SamsungIAP.Instance.SetOperationMode(Samsung.OperationMode.OPERATION_MODE_TEST_FAILURE);
-        productsButton.onClick.AddListener(OnGetProductsButton);        
-        productsButton.onClick.AddListener(OnBuyTestItem);
+        SamsungIAP.Instance.GetProductsDetails("", OnGetProductsDetails);
+        //productsButton.onClick.AddListener(OnGetProductsButton);        
+        //itemOneButton.onClick.AddListener(OnBuyTestItem);
     }
 
     void Update()
@@ -28,18 +30,20 @@ public class IAPStuff : MonoBehaviour
 
     //gets the products (not necessarily owned)
     void OnGetProductsDetails(ProductInfoList _productList){
-        if (_productList.errorInfo != null){
-            if (_productList.errorInfo.errorCode == 0){// 0 means no error
-                if (_productList.results != null){
-                    itemList.ClearOptions();
-                    List<string> optionItems = new List<string>();
-                    int i = 1;
-                    foreach (ProductVo item in _productList.results){
-                            string temp = i+ ". " + item.mItemId + ": $ " + item.mItemPrice;
-                            optionItems.Add(temp);
-                            i++;
+        if(itemList != null){
+            if (_productList.errorInfo != null){
+                if (_productList.errorInfo.errorCode == 0){// 0 means no error
+                    if (_productList.results != null){
+                        itemList.ClearOptions();
+                        List<string> optionItems = new List<string>();
+                        int i = 1;
+                        foreach (ProductVo item in _productList.results){
+                                string temp = i+ ". " + item.mItemId + ": $ " + item.mItemPrice;
+                                optionItems.Add(temp);
+                                i++;
+                        }
+                        itemList.AddOptions(optionItems);
                     }
-                    itemList.AddOptions(optionItems);
                 }
             }
         }
@@ -54,10 +58,10 @@ public class IAPStuff : MonoBehaviour
                         if(item.mStatusCode == 0){
                             //successfully consumed and ready to be purchased again.
                         }
-                 }
-             }
-         }
-     }
+                    }
+                }
+            }
+        }
     }
 
     //Used to get what you already own
@@ -70,9 +74,11 @@ public class IAPStuff : MonoBehaviour
                             //consume the consumable items and OnConsume callback is triggered afterwards
                             SamsungIAP.Instance.ConsumePurchasedItems(item.mPurchaseId, OnConsume);
                         }
-                        if(item.mItemId == "1"){
-                            //superJump++;
-                            itemText.text = "You bought first IAP";
+                        if(item.mItemId == "testItem"){
+                            MainManager.Instance.testNum++;
+                            if(purchasedItems != null){
+                                purchasedItems.text = "Coins: " + MainManager.Instance.testNum;
+                            }
                         }
                         else if(item.mItemId == "BuyUpgradedPlayer"){                         
                             //playerMaterial = Resources.Load<Material>("playerMaterial");
@@ -88,6 +94,9 @@ public class IAPStuff : MonoBehaviour
     //function to trigger payment
     void OnPayment(PurchasedInfo _purchaseInfo){
         if(_purchaseInfo.errorInfo != null){
+            if(itemText != null){
+                itemText.text = "First error check: " + _purchaseInfo.errorInfo.errorCode;
+            }
             if(_purchaseInfo.errorInfo.errorCode == 0){
                 if(_purchaseInfo.results != null){
                     //your purchase is successful
@@ -96,7 +105,9 @@ public class IAPStuff : MonoBehaviour
                         SamsungIAP.Instance.ConsumePurchasedItems(_purchaseInfo.results.mPurchaseId, OnConsume);
                     }
                     if(_purchaseInfo.results.mItemId == "testItem"){
-                        itemText.text = "You bought first IAP: " + _purchaseInfo.results.mItemName;
+                        if(itemText != null){
+                            itemText.text = "You bought first IAP: " + _purchaseInfo.results.mItemName;
+                        }
                     }
                     /*
                     else if(_purchaseInfo.results.mItemId == "BuyUpgradedPlayer"){
@@ -111,11 +122,11 @@ public class IAPStuff : MonoBehaviour
     }
 
     //button functions (for triggering events)
-    void OnGetProductsButton(){
+    public void OnGetProductsButton(){
         //get all the product details
         SamsungIAP.Instance.GetProductsDetails("", OnGetProductsDetails); 
     }  
-    void OnBuyTestItem(){
+    public void OnBuyTestItem(){
         SamsungIAP.Instance.StartPayment("BuySuperJump", "", OnPayment);
     }
 }
