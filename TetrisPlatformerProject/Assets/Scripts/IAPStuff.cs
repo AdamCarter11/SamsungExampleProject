@@ -72,20 +72,20 @@ public class IAPStuff : MonoBehaviour
             if(_ownedProductList.errorInfo.errorCode == 0){// 0 means no error
                 if(_ownedProductList.results != null){
                     foreach(OwnedProductVo item in _ownedProductList.results){
-                        /*
+                        
                         if(item.mConsumableYN == "Y"){
                             //consume the consumable items and OnConsume callback is triggered afterwards
                             SamsungIAP.Instance.ConsumePurchasedItems(item.mPurchaseId, OnConsume);
                         }
-                        */
+                        
                         if(item.mItemId == "testItem"){
-                            MainManager.Instance.testNum++;
+                            //MainManager.Instance.testNum++;
                             if(purchasedItems != null){
                                 purchasedItems.text = "Coins: " + MainManager.Instance.testNum;
                             }
                         }
                         else if(item.mItemId == "permItem"){
-                            MainManager.Instance.betterPlayer = true;                   
+                            //MainManager.Instance.betterPlayer = true;                   
                             //playerMaterial = Resources.Load<Material>("playerMaterial");
                             //MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
                             //meshRenderer.material = playerMaterial;                        
@@ -107,16 +107,19 @@ public class IAPStuff : MonoBehaviour
             if(_purchaseInfo.errorInfo.errorCode == 0){
                 if(_purchaseInfo.results != null){
                     //your purchase is successful
-                    /*
+                    
                     if(_purchaseInfo.results.mConsumableYN == "Y"){
                         //consume the consumable items
                         SamsungIAP.Instance.ConsumePurchasedItems(_purchaseInfo.results.mPurchaseId, OnConsume);
                     }
-                    */
+                    
                     if(_purchaseInfo.results.mItemId == "testItem"){
+                        MainManager.Instance.testNum++;
+                        
                         if(itemText != null){
                             itemText.text = "You bought first IAP: " + MainManager.Instance.testNum;
                         }
+                        
                     }
                     
                     else if(_purchaseInfo.results.mItemId == "permItem"){
