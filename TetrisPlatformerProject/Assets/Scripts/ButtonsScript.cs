@@ -31,22 +31,9 @@ public class ButtonsScript : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
     public void ConsumeCoins(){
-        SamsungIAP.Instance.ConsumePurchasedItems("testItem", OnConsume);
+        MainManager.Instance.testNum--;
     }
 
     
-    void OnConsume(ConsumedList _consumedList){
-        if(_consumedList.errorInfo != null){
-            if(_consumedList.errorInfo.errorCode == 0){
-                if(_consumedList.results != null){
-                    foreach(ConsumeVo item in _consumedList.results){
-                        if(item.mStatusCode == 0){
-                            //successfully consumed and ready to be purchased again.
-                            MainManager.Instance.testNum--;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
 }

@@ -58,7 +58,9 @@ public class IAPStuff : MonoBehaviour
                     foreach(ConsumeVo item in _consumedList.results){
                         if(item.mStatusCode == 0){
                             //successfully consumed and ready to be purchased again.
-                            MainManager.Instance.testNum--;
+                            //MainManager.Instance.testNum--;
+                            //this function is used to let us buy the thing again from the shop
+                            //need to do the changing of the variables outside of IAP stuff (to reduce item)
                         }
                     }
                 }
@@ -73,6 +75,7 @@ public class IAPStuff : MonoBehaviour
                 if(_ownedProductList.results != null){
                     foreach(OwnedProductVo item in _ownedProductList.results){
                         
+                        
                         if(item.mConsumableYN == "Y"){
                             //consume the consumable items and OnConsume callback is triggered afterwards
                             SamsungIAP.Instance.ConsumePurchasedItems(item.mPurchaseId, OnConsume);
@@ -85,7 +88,7 @@ public class IAPStuff : MonoBehaviour
                             }
                         }
                         else if(item.mItemId == "permItem"){
-                            //MainManager.Instance.betterPlayer = true;                   
+                            MainManager.Instance.betterPlayer = true;                   
                             //playerMaterial = Resources.Load<Material>("playerMaterial");
                             //MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
                             //meshRenderer.material = playerMaterial;                        
@@ -108,11 +111,13 @@ public class IAPStuff : MonoBehaviour
                 if(_purchaseInfo.results != null){
                     //your purchase is successful
                     
+                    
                     if(_purchaseInfo.results.mConsumableYN == "Y"){
                         //consume the consumable items
                         SamsungIAP.Instance.ConsumePurchasedItems(_purchaseInfo.results.mPurchaseId, OnConsume);
                     }
                     
+
                     if(_purchaseInfo.results.mItemId == "testItem"){
                         MainManager.Instance.testNum++;
                         
