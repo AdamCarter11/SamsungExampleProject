@@ -33,7 +33,12 @@ public class ButtonsScript : MonoBehaviour
     public void ConsumeCoins(){
         MainManager.Instance.testNum--;
     }
-
+    public void BuyPowerUp(){
+        if(MainManager.Instance.testNum > 0){
+            MainManager.Instance.testNum--;
+            MainManager.Instance.freezePowerUpCount++;
+        }
+    }
     
     
 }

@@ -10,9 +10,9 @@ public class IAPStuff : MonoBehaviour
     //private List<Samsung.ProductVo> listOfProducts;
     //[SerializeField] private Button productsButton, itemOneButton;
     [SerializeField] private Dropdown itemList;
-    [SerializeField] private Text itemText, purchasedItems;
+    [SerializeField] private Text itemText;
     //private int testNum = 0;
-    void Start()
+    void Awake()
     {
         //lst = new System.Action<Samsung.ProductInfoList>(returnInfoList);
         //Samsung.SamsungIAP.Instance.GetProductsDetails("", lst);
@@ -83,9 +83,11 @@ public class IAPStuff : MonoBehaviour
                         
                         if(item.mItemId == "testItem"){
                             //MainManager.Instance.testNum++;
+                            /*
                             if(purchasedItems != null){
                                 purchasedItems.text = "Coins: " + MainManager.Instance.testNum;
                             }
+                            */
                         }
                         else if(item.mItemId == "permItem"){
                             MainManager.Instance.betterPlayer = true;                   
@@ -122,13 +124,16 @@ public class IAPStuff : MonoBehaviour
                         MainManager.Instance.testNum++;
                         
                         if(itemText != null){
-                            itemText.text = "You bought first IAP: " + MainManager.Instance.testNum;
+                            itemText.text = "New coin count: " + MainManager.Instance.testNum;
                         }
                         
                     }
                     
                     else if(_purchaseInfo.results.mItemId == "permItem"){
                         MainManager.Instance.betterPlayer = true;
+                        if(itemText != null){
+                            itemText.text = "You bought improved character";
+                        }
                         /*
                         playerMaterial = Resources.Load<Material>("playerMaterial");
                         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();

@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public bool freezeObstacles = false;
 
-    private int freezePowerUpCount;
+    //private int freezePowerUpCount;
     private bool triggerJump = false;
     private bool triggerAttack = false;
     private bool triggerPowerUp = false;
@@ -175,9 +175,9 @@ public class Player : MonoBehaviour
         }
         triggerAttack = false;
 
-        if(triggerPowerUp && freezePowerUpCount > 0){
+        if(triggerPowerUp && MainManager.Instance.freezePowerUpCount > 0){
             freezeObstacles = true;
-            freezePowerUpCount--;
+            MainManager.Instance.freezePowerUpCount--;
         }
         else{
             freezeObstacles = false;
@@ -317,7 +317,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.CompareTag("FreezePowerUp")){
-            freezePowerUpCount++;
+            MainManager.Instance.freezePowerUpCount++;
             Destroy(other.gameObject);
             
         }

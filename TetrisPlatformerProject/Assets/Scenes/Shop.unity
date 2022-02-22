@@ -550,6 +550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testNum: 0
+  betterPlayer: 0
+  adFree: 0
+  freezePowerUpCount: 0
 --- !u!1 &599099655
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &599099656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1568,7 +1571,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Purchase Item 1
+  m_Text: Purchase Coins
 --- !u!222 &1139707358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1884,7 +1887,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 36
+    m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -1895,7 +1898,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Purchase Item 2
+  m_Text: Purchase Character+
 --- !u!222 &1291020381
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2247,7 +2250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList: {fileID: 1004208880}
   itemText: {fileID: 230180646}
-  purchasedItems: {fileID: 873499289}
 --- !u!1 &1736861206
 GameObject:
   m_ObjectHideFlags: 0

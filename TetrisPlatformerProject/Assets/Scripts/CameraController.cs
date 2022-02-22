@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float cameraChangeAmount;
     [SerializeField]
-    private Text scoreBox;
+    private Text scoreBox, powerUpText;
     private float playerScore;
     private float playerStartingY;
     // Start is called before the first frame update
@@ -52,6 +52,7 @@ public class CameraController : MonoBehaviour
             playerScore = target.transform.position.y;
         }
         scoreBox.text = "Distance: " + playerScore.ToString("F2");
+        powerUpText.text = "PowerUps: " + MainManager.Instance.freezePowerUpCount;
     }
 
     //makes camera move slightly over time
