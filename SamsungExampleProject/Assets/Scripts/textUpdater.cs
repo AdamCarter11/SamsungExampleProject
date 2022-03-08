@@ -17,6 +17,7 @@ public class textUpdater : MonoBehaviour
     void Update()
     {
         coinText.text = "Coins: " + MainManager.Instance.testNum;
-        powerUpText.text = "PowerUps: " + MainManager.Instance.freezePowerUpCount;
+        if(powerUpText != null)
+            powerUpText.text = "PowerUps: " + MainManager.Instance.freezePowerUpCount;
     }
 }

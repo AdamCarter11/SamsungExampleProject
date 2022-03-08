@@ -2319,6 +2319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1644967617}
   - component: {fileID: 1644967616}
+  - component: {fileID: 1644967618}
   m_Layer: 0
   m_Name: ButtonScript
   m_TagString: Untagged
@@ -2352,6 +2353,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1644967618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644967615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59eb3dbc871854244a0420cc82954b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinText: {fileID: 715198726}
+  powerUpText: {fileID: 1580729934}
 --- !u!1 &1706962175
 GameObject:
   m_ObjectHideFlags: 0
